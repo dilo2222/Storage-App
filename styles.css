@@ -1,0 +1,42 @@
+.app {
+    display: flex;
+    max-width: 1000px;
+    min-width: 500px;
+    margin: 0 auto;
+    flex-direction: column;
+}
+
+.app__top {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 20px;
+    align-items: center;
+}
+
+.app__headers {
+    background-color: black;
+    color: white;
+}
+
+.product__buttons {
+    color: black;
+}
+
+.app__add {
+   border-radius: 50px;
+   border: 0;
+   padding: 15px;
+   background-color: #169527b5;
+   color: white; 
+}
+
+.app__headers th {
+    text-align: start;
+    min-width: 50px;
+    max-width: 100px;
+    padding: 10px;
+} 
+
+.app__headers th:not(:last-child):hover {
+    background-color: #393737;
+}
