@@ -1,8 +1,14 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #aaafb0;
+}
+
 .app {
     display: flex;
-    max-width: 1000px;
+    max-width: 900px;
     min-width: 500px;
-    margin: 0 auto;
+    margin: 50px auto 0 auto;
     flex-direction: column;
 }
 
@@ -37,6 +43,41 @@
     padding: 10px;
 } 
 
+.app__table td {
+    text-align: start;
+    min-width: 50px;
+    max-width: 100px;
+    padding: 10px
+}
+
 .app__headers th:not(:last-child):hover {
     background-color: #393737;
+}
+
+.product__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+
+
+    input,
+    button {
+        border-radius: 90px;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+
+    }
+}
+
+.product__create {
+    background-color: #356c53;
+    color: white;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+
 }
