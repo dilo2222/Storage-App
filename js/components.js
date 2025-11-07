@@ -1,3 +1,5 @@
+import {navigation} from "./navigation.js"
+
 
 // получение данных из LocalStorage
 function getFromStorage() {
@@ -20,6 +22,10 @@ function appTop(){
     const addBtn = document.createElement("button")
     addBtn.classList.add("app__NewElement")
     addBtn.textContent = "Добавить Запись"
+
+    addBtn.addEventListener("click", function(e) {
+        navigation("NewProduct")
+    })
     containerEl.append(appTitle, addBtn)
     return containerEl
 }

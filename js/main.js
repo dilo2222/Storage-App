@@ -44,7 +44,7 @@ function createTable(keyWord) {
 
     const tdEl = document.createElement("td");
     const deleteEl = document.createElement("button");
-    tdEl.textContent = "Удалить";
+    deleteEl.textContent = "Удалить";
     tdEl.classList.add("app__deleteRow");
     tdEl.dataset.id = el.id;
 
@@ -87,6 +87,7 @@ function createProduct() {
 
   // добавление в LocalStorage
   submitBtn.addEventListener("click", function (e) {
+    navigation("NewProduct")
     e.preventDefault();
     if ((nameEl.value &&  locationEl.value && weightEl.value && timingEl.value)) {
       const products = getFromStorage();
@@ -103,13 +104,14 @@ function createProduct() {
       products.push(product);
 
       setToStorage(products);
-      navigation();
       
-      console.log("d")
     }
+
+    navigation()
   });
 } 
 
-createProduct();
+navigation()
+
 
 export { createTable, createProduct };
