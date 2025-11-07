@@ -1,83 +1,41 @@
 body {
-    margin: 0;
-    padding: 0;
-    background-color: #aaafb0;
+  background-color: #c9c7c7;
+  
 }
 
 .app {
-    display: flex;
-    max-width: 900px;
-    min-width: 500px;
-    margin: 50px auto 0 auto;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+width: 100%;
+max-width: 900px;
+  margin: 50px auto 0 auto;
+  box-sizing: border-box;
 }
 
-.app__top {
-    display: flex;
-    justify-content: space-between;
-    margin: 0 0 20px;
-    align-items: center;
-}
+.app__container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 0 30px;
 
-.app__headers {
-    background-color: black;
-    color: white;
-}
-
-.product__buttons {
-    color: black;
-}
-
-.app__add {
-   border-radius: 50px;
-   border: 0;
-   padding: 15px;
-   background-color: #169527b5;
-   color: white; 
-}
-
-.app__headers th {
-    text-align: start;
-    min-width: 50px;
-    max-width: 100px;
-    padding: 10px;
-} 
-
-.app__table td {
-    text-align: start;
-    min-width: 50px;
-    max-width: 100px;
-    padding: 10px
-}
-
-.app__headers th:not(:last-child):hover {
-    background-color: #393737;
-}
-
-.product__wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-
-
-    input,
-    button {
-        border-radius: 90px;
-        border: none;
-        padding: 10px;
-        width: 100%;
-        box-sizing: border-box;
-
-    }
-}
-
-.product__create {
-    background-color: #356c53;
-    color: white;
-    padding: 0;
+  h2 {
     margin: 0;
-    width: 100%;
+  }
 
+  button {
+    background-color: #397464;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+  }
+}
+.app__table-header {
+  background-color: #000000;
+
+  th {
+    padding: 10px;
+    color: white;
+    text-align: start;
+  }
 }

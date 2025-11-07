@@ -1,173 +1,115 @@
-// контейнер
-const containerEl = document.querySelector(".app");
+import {
+  getFromStorage,
+  setToStorage,
+  appTop,
+  createInput,
+} from "./components.js";
 
-// навигация
-function navigate(name) {
-  containerEl.innerHTML = "";
+import { navigation } from "./navigation.js";
 
-  switch (name) {
-    case "storage":
-      createTable();
-      break;
-    case "add":
-      addProduct();
-      break;
-    default:
-      createTable();
-      break;
-  }
-}
+// добавление в таблицу
+function createTable(keyWord) {
+  const products = keyWord || getFromStorage();
 
-// получение данных с LocalStorage
-function getFromStorage() {
-  const localData = JSON.parse(localStorage.getItem("products")) || [];
-  return localData;
-}
+  const appEl = document.querySelector(".app");
+  appEl.innerHTML = "";
 
-// добавление названия склад и кнопки добавления
-function appTop() {
-  const naviagtionContainer = document.createElement("div");
-  naviagtionContainer.classList.add("app__top");
+  // title и кнопка добавления
+  const topEl = appTop();
 
-  const appTitle = document.createElement("h2");
-  appTitle.textContent = "Склад";
-
-  const addProduct = document.createElement("button");
-  addProduct.textContent = "Добавить Запись";
-  addProduct.classList.add("app__add");
-
-  addProduct.addEventListener("click", function () {
-    navigate("add");
-  });
-
-  naviagtionContainer.append(appTitle, addProduct);
-  containerEl.append(naviagtionContainer);
-}
-
-// добавление продуктов
-function createTable() {
-  containerEl.innerHTML = "";
-  appTop();
-
-  const products = getFromStorage();
-
-  // для загаловки таблицы
+  // загаловки таблицы
   const tableHeader = document.createElement("table");
-  tableHeader.classList.add("app__headers");
-
-  // для отображения данных из Storage
-  const tableEl = document.createElement("table");
-  tableEl.classList.add("app__table");
-
-  containerEl.append(tableHeader, tableEl);
-
+  tableHeader.classList.add("app__table-header");
   tableHeader.innerHTML = `
-    <tr>
-    <th class="product__names">Название</th>
-    <th class="product__location">Полка</th>
-    <th class="product__weight">Вес</th>
-    <th class="product__save">Время хранения</th>
-    <th class="product__buttons">строка</th>
+  <tr>
+    <th class="app__table-name">Название</th>
+    <th class="app__table-location">Полка</th>
+    <th class="app__table-weight">Вес</th>
+    <th class="app__table-save">Срок Хранения</th>
+    <th class="app__table-empty"></th>
     </tr>`;
 
-  tableEl.innerHTML = "";
+  // таблица склада товаров
+  const tableData = document.createElement("table");
+  tableData.innerHTML = "";
 
   products.forEach((el) => {
     const trEl = document.createElement("tr");
 
     trEl.innerHTML = `
-            <td>${el.name}</td>
-            <td>${el.place}</td>
-            <td>${el.weight}</td>
-            <td>${el.storage}</td>`;
+    <td>${el.name}</td>
+    <td>${el.location}</td>
+    <td>${el.weight}</td>
+    <td>${el.time}</td>`;
+
     const tdEl = document.createElement("td");
+    const deleteEl = document.createElement("button");
+    tdEl.textContent = "Удалить";
+    tdEl.classList.add("app__deleteRow");
+    tdEl.dataset.id = el.id;
 
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "Remove";
-    deleteBtn.classList.add("app__remove-El");
-
-    deleteBtn.dataset.id = el.id;
-
-    tdEl.append(deleteBtn);
+    tdEl.append(deleteEl);
     trEl.append(tdEl);
-    tableEl.append(trEl);
+    tableData.append(trEl);
   });
+
+  appEl.append(topEl, tableHeader, tableData);
 }
 
-// Создание input полей
-function createInput(typeEl, placeholderEl) {
-  const inputEl = document.createElement("input");
-  inputEl.required = true;
-  inputEl.type = typeEl;
-  inputEl.placeholder = placeholderEl;
+function createProduct() {
+  const appEl = document.querySelector(".app");
 
-  return inputEl;
-}
+  const formEl = document.createElement("form");
+  formEl.classList.add("app__form");
 
-// вторая страница
-function addProduct() {
-  const productWrapper = document.createElement("form");
-  productWrapper.classList.add("product__wrapper");
+  formEl.method = "submit";
 
-  const productTitle = document.createElement("h2");
-  productTitle.textContent = "Добавить запись";
+  // Название
+  const nameEl = createInput("text", "Название товара");
 
-  const nameEl = createInput("text", "Название продукта");
-  const placeEl = createInput("text", "Полка продукта");
-  const weightEl = createInput("number", "Вес продукта");
-  const storageTime = createInput("date", "Срок хранения");
-  const id = Date.now();
+  // Полка
+  const locationEl = createInput("text", "Полка товара");
 
-  const submitButton = document.createElement("button");
-  submitButton.textContent = "Добавить запись";
-  submitButton.type = "submit";
-  submitButton.classList.add("product__create");
+  // Вес
+  const weightEl = createInput("number", "Вес товара");
 
-  productWrapper.append(
-    productTitle,
-    nameEl,
-    placeEl,
-    weightEl,
-    storageTime,
-    submitButton
-  );
+  // Время Хранения
+  const timingEl = createInput("date", "Срок Хранения");
 
-  containerEl.append(productWrapper);
+  // Кнопка Добавления
+  const submitBtn = document.createElement("button");
+  submitBtn.type = "submit";
+  submitBtn.classList.add("form__submit");
+  submitBtn.textContent = "Добавить запись";
 
-  // кнопка добавления в Storage
-  submitButton.addEventListener("click", function (e) {
+  formEl.append(nameEl, locationEl, weightEl, timingEl, submitBtn);
+  appEl.append(formEl);
+
+  // добавление в LocalStorage
+  submitBtn.addEventListener("click", function (e) {
     e.preventDefault();
-    if (nameEl.value && placeEl.value && weightEl.value && storageTime.value) {
-      const product = {
-        name: nameEl.value,
-        place: placeEl.value,
-        weight: weightEl.value,
-        storage: storageTime.value,
-        id: id,
-      };
-
+    if ((nameEl.value &&  locationEl.value && weightEl.value && timingEl.value)) {
       const products = getFromStorage();
+      const id = Date.now();
+      const product = 
+        {
+          name: nameEl.value,
+          location: locationEl.value,
+          weight: weightEl.value,
+          time: timingEl.value,
+          id,
+        }
+
       products.push(product);
-      localStorage.setItem("products", JSON.stringify(products));
-      navigate("storage");
-      productWrapper.reset();
+
+      setToStorage(products);
+      navigation();
+      
+      console.log("d")
     }
   });
-}
+} 
 
-// удаление элемента
-document.addEventListener("DOMContentLoaded", function() {
-  const removeRow = document.querySelector(".app__table");
-  removeRow?.addEventListener("click", function(e) {
-    e.preventDefault();
-    if (e.target.classList.contains("app__remove-El")) {
-      const products = getFromStorage()
-       const updated = products.filter(a => Number(a.id) !== Number(e.target.dataset.id))
+createProduct();
 
-      localStorage.setItem("products", JSON.stringify(updated))
-      createTable()
-    }
-  });
-});
-
-navigate();
+export { createTable, createProduct };
