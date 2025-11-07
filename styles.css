@@ -1,13 +1,12 @@
 body {
   background-color: #c9c7c7;
-  
 }
 
 .app {
   display: flex;
   flex-direction: column;
-width: 100%;
-max-width: 900px;
+  width: 100%;
+  max-width: 900px;
   margin: 50px auto 0 auto;
   box-sizing: border-box;
 }
@@ -31,11 +30,59 @@ max-width: 900px;
   }
 }
 .app__table-header {
-  background-color: #000000;
+  
 
   th {
+    background-color: #000000;
     padding: 10px;
     color: white;
     text-align: start;
+    width: 100px;
   }
+
+  th:hover:not(:last-child) {
+    background-color: #515151;;
+  }
+}
+
+.app__mainTable {
+  td {
+    padding: 10px;
+    color: #000000;
+    text-align: start;
+    width: 100px;
+    background-color: #fff;
+  }
+}
+
+.app__form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  h2 {
+    margin: 0 auto;
+  }
+
+  button,
+  input {
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+  }
+
+  button {
+    background-color: #2f7747;
+    color: white;
+  }
+
+}
+
+.app__deleteRow {
+  background-color: rgb(184, 59, 59);
+  color: white;
+  border-radius: 30px;
+  padding: 10px;
+  border: none;
+  width: 100px;
 }
