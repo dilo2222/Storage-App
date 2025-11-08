@@ -9,11 +9,12 @@ export function navigation(keyWord) {
       createProduct();
       break;
 
-    case "sortingByName":
-      createTable("sortingByName");
+    case "sorting":
+      console.log("dg")
       break;
 
     default:
       createTable();
   }
 }
+

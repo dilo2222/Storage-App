@@ -7,8 +7,6 @@ import {
 
 import { navigation } from "./navigation.js";
 
-import {sorting} from "./sorting.js"
-
 // добавление в таблицу
 function createTable(keyWord) {
   const products = keyWord || getFromStorage();
@@ -69,6 +67,18 @@ function createTable(keyWord) {
       navigation();
     }
   });
+
+  // сортировка
+  tableHeader.addEventListener("click", function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains("app__table-name")) {
+      let newTable = products.sort((a, b) => a.name.localeCompare(b.name));
+      createTable(newTable);
+    } else if (e.target.classList.contains("app__table-location")) {
+      let newTable = products.sort((a, b) => a.location.localeCompare(b.location));
+      createTable(newTable);
+    }
+  });
 }
 
 // вторая страница
@@ -126,7 +136,6 @@ function createProduct() {
     }
   });
 }
-
-navigation();
+document.addEventListener("DOMContentLoaded", navigation());
 
 export { createTable, createProduct };
