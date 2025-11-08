@@ -1,45 +1,42 @@
-import {navigation} from "./navigation.js"
-
+import { navigation } from "./navigation.js";
 
 // получение данных из LocalStorage
 function getFromStorage() {
-    const products = JSON.parse(localStorage.getItem("products")) || []
-    return products
+  const products = JSON.parse(localStorage.getItem("products")) || [];
+  return products;
 }
 
 // сохранение в LocalStorage
-function setToStorage(text){
-    localStorage.setItem("products", JSON.stringify(text))
+function setToStorage(text) {
+  localStorage.setItem("products", JSON.stringify(text));
 }
 
 // загаловок страницы с кнопкой добавить запись
-function appTop(){
-    const containerEl = document.createElement("div")
-    containerEl.classList.add("app__container")
-    const appTitle = document.createElement("h2")
-    appTitle.textContent = "Склад"
+function appTop() {
+  const containerEl = document.createElement("div");
+  containerEl.classList.add("app__container");
+  const appTitle = document.createElement("h2");
+  appTitle.textContent = "Склад";
 
-    const addBtn = document.createElement("button")
-    addBtn.classList.add("app__NewElement")
-    addBtn.textContent = "Добавить Запись"
+  const addBtn = document.createElement("button");
+  addBtn.classList.add("app__NewElement");
+  addBtn.textContent = "Добавить Запись";
 
-    addBtn.addEventListener("click", function(e) {
-        navigation("NewProduct")
-    })
-    containerEl.append(appTitle, addBtn)
-    return containerEl
+  addBtn.addEventListener("click", function (e) {
+    navigation("NewProduct");
+  });
+  containerEl.append(appTitle, addBtn);
+  return containerEl;
 }
 
-// создание input полей 
+// создание input полей
 
 function createInput(typeEl, placeholderEl) {
-    const inputEl = document.createElement("input")
-    inputEl.type = typeEl;
-    inputEl.placeholder = placeholderEl;
-    inputEl.required = true
-    return inputEl
+  const inputEl = document.createElement("input");
+  inputEl.type = typeEl;
+  inputEl.placeholder = placeholderEl;
+  inputEl.required = true;
+  return inputEl;
 }
 
-
-
-export {getFromStorage, setToStorage, appTop, createInput}
+export { getFromStorage, setToStorage, appTop, createInput };

@@ -1,14 +1,9 @@
-import {
-  getFromStorage,
-  setToStorage,
-  appTop,
-  createInput,
-} from "./components.js";
+import { getFromStorage, setToStorage, appTop } from "./components.js";
 
 import { navigation } from "./navigation.js";
 
 // добавление в таблицу
-function createTable(keyWord) {
+export function createTable(keyWord) {
   const products = keyWord || getFromStorage();
 
   const appEl = document.querySelector(".app");
@@ -71,71 +66,29 @@ function createTable(keyWord) {
   // сортировка
   tableHeader.addEventListener("click", function (e) {
     e.preventDefault();
+
     if (e.target.classList.contains("app__table-name")) {
+      // сортировка по названию
       let newTable = products.sort((a, b) => a.name.localeCompare(b.name));
       createTable(newTable);
     } else if (e.target.classList.contains("app__table-location")) {
-      let newTable = products.sort((a, b) => a.location.localeCompare(b.location));
+      //  сортировка по полке
+      let newTable = products.sort((a, b) =>
+        a.location.localeCompare(b.location)
+      );
+      createTable(newTable);
+    } else if (e.target.classList.contains("app__table-weight")) {
+      //  сортировка по весу
+      let newTable = products.sort((a, b) => a.weight - b.weight);
+      createTable(newTable);
+    } else if (e.target.classList.contains("app__table-save")) {
+      //  сортировка по сроку хранения
+      let newTable = products.sort((a, b) => a.time.localeCompare(b.time));
       createTable(newTable);
     }
   });
 }
 
-// вторая страница
-function createProduct() {
-  const appEl = document.querySelector(".app");
-
-  const formEl = document.createElement("form");
-  formEl.classList.add("app__form");
-
-  formEl.method = "submit";
-
-  // заголовок
-  const titleEl = document.createElement("h2");
-  titleEl.textContent = "Добавить Запись";
-
-  // Название
-  const nameEl = createInput("text", "Название товара");
-
-  // Полка
-  const locationEl = createInput("text", "Полка товара");
-
-  // Вес
-  const weightEl = createInput("number", "Вес товара");
-
-  // Время Хранения
-  const timingEl = createInput("date", "Срок Хранения");
-
-  // Кнопка Добавления
-  const submitBtn = document.createElement("button");
-  submitBtn.type = "submit";
-  submitBtn.classList.add("form__submit");
-  submitBtn.textContent = "Добавить запись";
-
-  formEl.append(titleEl, nameEl, locationEl, weightEl, timingEl, submitBtn);
-  appEl.append(formEl);
-
-  // добавление в LocalStorage
-  submitBtn.addEventListener("click", function (e) {
-    navigation("NewProduct");
-    e.preventDefault();
-    if (nameEl.value && locationEl.value && weightEl.value && timingEl.value) {
-      const products = getFromStorage();
-      const id = Date.now();
-      const product = {
-        name: nameEl.value,
-        location: locationEl.value,
-        weight: weightEl.value,
-        time: timingEl.value,
-        id,
-      };
-
-      products.push(product);
-      setToStorage(products);
-      navigation();
-    }
-  });
-}
-document.addEventListener("DOMContentLoaded", navigation());
-
-export { createTable, createProduct };
+document.addEventListener("DOMContentLoaded", function () {
+  navigation();
+});
