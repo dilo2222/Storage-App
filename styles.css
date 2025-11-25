@@ -82,6 +82,10 @@ body {
   padding: 10px;
   border: none;
   width: 100px;
+
+  &:hover {
+    background-color: rgb(131, 43, 43);
+  }
 }
 
 .loader {
